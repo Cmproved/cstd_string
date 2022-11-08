@@ -1,30 +1,44 @@
 CC=gcc
 
-NAME=libcstdstr.a
+NAME=libcstdstring.a
 
-SRC = src/cstr.c\
-	src/init_cstr.c\
+SRC = src/cstd_string.c\
 	src/cstr_next.c\
-	src/tools.c\
+	src/init_cstr.c\
+	src/tools.c
 
-CFLAGS 	+= -g2
+CFLAGS 	+= -O3 -Ofast -Wall
 
-OBJ=$(SRC:.c=.o)
+CFLAGS_DEBUG += ${CFLAGS} -g2 -fanalyzer -Wextra -Wundef
 
-RM=rm -r
+OBJ=${patsubst %c, %o, ${SRC}}
+OBJ_DEBUG=${patsubst %c, %o_debug, ${SRC}}
+
+RM=rm -rf
+
+%.o: %.c
+	${CC} ${CFLAGS} -c -o $@ $<
+
+%.o_debug: %.c
+	${CC} ${CFLAGS_DEBUG} -c -o $@ $<
 
 all: ${NAME}
 
 ${NAME}: ${OBJ}
 	ar rc $(NAME) $^
 
-tests: ${NAME}
-	gcc -Wall -g2 main.c -L. -lstringc
+debug: ${OBJ_DEBUG}
+	ar rc ${NAME} $^
+
+tests: debug
+	gcc ${CFLAGS_DEBUG} tests/main.c -L. -lcstdstring
 
 clean:
-	${RM} ${OBJ}
+	${RM} ${OBJ} ${OBJ_DEBUG}
 
 fclean: clean
 	${RM} ${NAME} a.out
 
 re: fclean all
+
+.PHONY: all ${NAME} debug tests clean re fclean

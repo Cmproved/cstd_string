@@ -1,4 +1,4 @@
-#include "cstr.h"
+#include "../include/cstr.h"
 
 const char *c_str(cstr *c)
 {

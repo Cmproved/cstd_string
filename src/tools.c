@@ -1,4 +1,4 @@
-#include "cstr.h"
+#include "../include/cstr.h"
 
 int my_strcmp(char const *str1, char const *str2)
 {

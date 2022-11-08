@@ -1,4 +1,4 @@
-#include "cstr.h"
+#include "../include/cstr.h"
 
 void clear(cstr *c)
 {
