@@ -15,6 +15,13 @@ cstr *Cstr(const char *str)
     s->c_str = &c_str;
     s->set_str = &set_str;
     s->len = &len;
+    s->front = &front;
+    s->back = &back;
+    s->empty = &empty;
+    s->append = &append;
+    s->append_s = &append_s;
+    s->push_back = &push_back;
+    s->pop_back = &pop_back;
     return (s);
 }
 
