@@ -5,14 +5,14 @@ const char *c_str(cstr *c)
     return (c->_str);
 }
 
-const char at(cstr *c, size_t i)
+char at(cstr *c, size_t i)
 {
-    if (!c || i < 0 || c->len(c) < i)
+    if (!c || c->len(c) < i)
         return(-1);
     return (c->_str[i]);
 }
 
-const size_t len(cstr *c)
+size_t len(cstr *c)
 {
     return (my_strlen(c->_str));
 }

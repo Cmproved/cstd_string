@@ -9,8 +9,8 @@ typedef struct cstring_s {
 
 // methods
     const char *(*c_str)(struct cstring_s *);
-    const char (*at)(struct cstring_s *, size_t);
-    const size_t (*len)(struct cstring_s *);
+    char (*at)(struct cstring_s *, size_t);
+    size_t (*len)(struct cstring_s *);
     void (*set_str)(struct cstring_s *, const char *);
     struct cstring_s *(*copy)(struct cstring_s *);
     void (*clear)(struct cstring_s *);
@@ -42,14 +42,15 @@ typedef struct cstring_s {
 
 // less chars typedef
 typedef cstring cstr;
+typedef cstring *Cstr;
 
-cstr *Cstr(const char *str);
+cstr *Cstr_create(const char *str);
 void Cstr_destroy(cstr *s);
 
 const char *c_str(cstr *s);
-const char at(cstr *s, size_t i);
+char at(cstr *s, size_t i);
 size_t my_strlen(const char *str);
-const size_t len(cstr *s);
+size_t len(cstr *s);
 void set_str(cstr *s, const char *str);
 char *my_strcpy(char *dest, const char *str);
 char *my_strdup(const char *str);

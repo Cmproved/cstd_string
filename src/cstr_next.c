@@ -10,7 +10,7 @@ void clear(cstr *c)
 
 cstr *copy(cstr *c)
 {
-    cstr *new = Cstr(c->_str);
+    cstr *new = Cstr_create(c->_str);
     return (new);
 }
 
@@ -32,14 +32,32 @@ int empty(cstr c)
 
 int append(cstr *c, const char *str)
 {
-    size_t size = my_strlen(c->_str) + my_strlen(str);
-    char *a = malloc(size);
+    int c_len = my_strlen(c->_str);
+    int str_len = my_strlen(str);
+    int size = c_len + str_len + 1;
+    char *a = malloc(sizeof(char) * size);
+    int i = 0;
+
     if (a == NULL) {
         return (1);
     }
-    a = strcat(a, c->_str);
-    a = strcat(a, str);
+
+    for (i = 0; i < c_len && c->at(c, i) != 0; ++i) {
+        a[i] = c->at(c, i);
+    }
+
+    for (int j = 0; j < str_len && i < size; ++i, ++j) {
+        if (str[j] == 0) {
+            a[i] = 0;
+            break;
+        }
+        a[i] = str[j];
+    }
+
+    a[size - 1] = 0;
+
     c->set_str(c, a);
+    free(a);
     return (0);
 }
 
@@ -50,14 +68,25 @@ int append_s(cstr *c, const cstr b)
 
 int push_back(cstr *c, const char str)
 {
-    // see flaws because of undefined \0
-    return (append(c, &str));
+    char *a = malloc(2);
+
+    if (a == NULL) {
+        return (1);
+    }
+
+    a[0] = str;
+    a[1] = 0;
+
+    int result = append(c, a);
+    free(a);
+    return result;
 }
 
 int pop_back(cstr *c)
 {
     size_t size = my_strlen(c->_str) - 1;
     char *a = malloc(size + 1);
+
     if (a == NULL) {
         return (1);
     }
@@ -65,7 +94,9 @@ int pop_back(cstr *c)
     for (size_t i = 0; i < size; ++i) {
         a[i] = c->_str[i];
     }
+
     a[size] = '\0';
     c->set_str(c, a);
+    free(a);
     return (0);
 }
