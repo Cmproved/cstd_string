@@ -13,6 +13,8 @@ cstr *_copy_values(cstr *s)
     s->append_s = &append_s;
     s->push_back = &push_back;
     s->pop_back = &pop_back;
+    s->resize = &resize;
+    s->clear = &clear;
     return (s);
 }
 

@@ -1,12 +1,6 @@
 #include "../include/cstr.h"
 #include <stdio.h>
 
-void clear(cstr *c)
-{
-    free(c->_str);
-    c->_str = my_strdup("\0");
-    return;
-}
 
 cstr *copy(cstr *c)
 {
@@ -23,11 +17,6 @@ char *back(cstr *c)
 {
     size_t i = my_strlen(c->_str);
     return &(c->_str[i - 1]);
-}
-
-int empty(cstr c)
-{
-    return (my_strlen(c._str) == 0);
 }
 
 int append(cstr *c, const char *str)

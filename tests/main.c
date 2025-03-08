@@ -5,11 +5,12 @@ int main(void)
 {
     Cstr a = Cstr_create("Bonjour");
     printf("%s\n", a->c_str(a));
-    a->pop_back(a);
-    printf("%s\n", a->c_str(a));
-    a->push_back(a, 'r');
+
+    a->resize(a, 4, 'r');
     printf("%s\n", a->c_str(a));
 
+    a->clear(a);
+    printf("%s\n", a->c_str(a));
     Cstr_destroy(a);
     return (0);
 }
