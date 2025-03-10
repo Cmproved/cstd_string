@@ -2,7 +2,7 @@
 *.d
 
 # Object files
-*.o
+*.o*
 *.ko
 *.obj
 *.elf
@@ -50,3 +50,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+*vgcore*
+

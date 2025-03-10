@@ -1,16 +1,7 @@
 #include "../include/cstr.h"
 
-cstr *Cstr(const char *str)
+cstr *_copy_values(cstr *s)
 {
-    cstr *s = (cstr *)malloc(sizeof(cstr));
-
-    if (!s || !str || *str == '\0')
-        return (NULL);
-    s->_str = my_strdup(str);
-    if (!s->_str){
-        free(s);
-        return (NULL);
-    }
     s->at = &at;
     s->c_str = &c_str;
     s->set_str = &set_str;
@@ -22,6 +13,32 @@ cstr *Cstr(const char *str)
     s->append_s = &append_s;
     s->push_back = &push_back;
     s->pop_back = &pop_back;
+    s->resize = &resize;
+    s->clear = &clear;
+    return (s);
+}
+
+cstr *Cstr_create(const char *str)
+{
+    cstr *s = malloc(sizeof(cstr));
+
+    if (s == NULL) {
+        return (NULL);
+    }
+
+    if (!str || *str == '\0') {
+        free(s);
+        return (NULL);
+    }
+
+    s->_str = my_strdup(str);
+
+    if (!s->_str){
+        free(s);
+        return (NULL);
+    }
+
+    _copy_values(s);
     return (s);
 }
 

@@ -5,7 +5,8 @@ NAME=libcstdstring.a
 SRC = src/cstd_string.c\
 	src/cstr_next.c\
 	src/init_cstr.c\
-	src/tools.c
+	src/tools.c\
+	src/capacity.c
 
 CFLAGS 	+= -O3 -Ofast -Wall
 
